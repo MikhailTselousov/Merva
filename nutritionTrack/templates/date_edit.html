@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block page_content %}
+
+    {% if func == 'Change' %}
+    <h3>Food item amount changing Page</h3>
+        <form action="{{ request.get_full_path }}" method="POST">
+            {% csrf_token %}
+            <div>
+                <p>{{ name }}</p>
+                <div class="form-group">{{ form.amount }}</div>
+            </div>
+            <button type="submit" class="btn btn-primary">Change</button>
+        </form>
+    {% else %}
+    <h3>Food items adding Page</h3>
+    <h6>Food items:</h6>
+    <form action="{{ request.get_full_path }}" method="POST">
+        {% csrf_token %}
+        {% for food_item_field in form.get_food_item_fields %}
+            <p>{{ food_item_field.name }}</p>
+            <div class="form-group">{{ food_item_field.field }}</div>
+        {% endfor %}
+        
+        <button type="submit" class="btn btn-primary">Add</button>
+    </form>
+    {% endif %}
+    
+
+    {% if form.errors %}
+        {% for field in form %}
+            {% for error in field.errors %}
+            <div class="alert alert-danger">
+                <strong>{{ error|escape }}</strong>
+            </div>
+            {% endfor %}
+        {% endfor %}
+        {% for error in form.non_field_errors %}
+            <div class="alert alert-danger">
+                <strong>{{ error|escape }}</strong>
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endblock %}

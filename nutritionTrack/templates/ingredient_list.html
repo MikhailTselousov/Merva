@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block page_content %}
+<h3>Ingredient list Page</h3>
+    {% for ingredient in ingredients %}
+        <div class="card" style="width: 18rem; margin: 10pt;">
+            <div class="card-body">
+                <h4>{{ ingredient.name }}</h4>
+                <h5>Kilocalories:</h5>
+                <p>{{ ingredient.kcals }}</p>
+                <h5>Carbohydrates:</h5>
+                <p>{{ ingredient.carbs }}</p>
+                <h5>Proteins:</h5>
+                <p>{{ ingredient.prots }}</p>
+                <h5>Fats:</h5>
+                <p>{{ ingredient.fats }}</p>
+                <a href="{% url 'ingredient_edit' 'Change' ingredient.pk 'ingredient_list' %}" class="btn btn-primary">Edit</a>
+                <a href="{% url 'ingredient_edit' 'Del' ingredient.pk 'ingredient_list' %}" class="btn btn-primary">Remove</a>
+            </div>
+        </div>
+
+    {% endfor %}
+
+    <a href="{% url 'ingredient_edit' 'Add' 'None' 'ingredient_list' %}" class="btn btn-primary">Add one</a>
+{% endblock %}

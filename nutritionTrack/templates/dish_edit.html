@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block page_content %}
+    <form action="{% url 'dish_edit' func pk next_target %}" method="POST">
+        {% csrf_token %}
+
+        {% if dish != None %}
+            <h5>{{ dish.name }}</h5>
+        {% else %}
+            <h5>Name</h5>
+        {% endif %}
+        <div class="form-group">{{ form.name }}</div>
+
+        <h5>Total amount</h5>
+        <p>{{ dish.totalAmount }}</p>
+        <div class="form-group">{{ form.totalAmount }}</div>
+
+        <h5>Ingredients</h5>
+        {% for ingredient_field in form.get_ingredient_fields %}
+            <p>{{ ingredient_field.name }}</p>
+            <div class="form-group"> {{ ingredient_field.field }}</div>
+        {% endfor %}
+        <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+    {% if form.errors %}
+        {% for field in form %}
+            {% for error in field.errors %}
+                <div class="alert alert-danger">
+                    <strong>{{ error|escape }}</strong>
+                </div>
+            {% endfor %}
+        {% endfor %}
+        {% for error in form.non_field_errors %}
+            <div class="alert alert-danger">
+                <strong>{{ error|escape }}</strong>
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endblock %}
