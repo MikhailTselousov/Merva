@@ -11,6 +11,8 @@ Please follow the following steps to install project:
 7. Run server from manage.py using: python3 manage.py runserver
 8. Try the web app by localhost:8000
 
+Also the project is using bootstrap remotely.
+
 if you want email features configure the email settings in settings.py
 
 Usage guide:
